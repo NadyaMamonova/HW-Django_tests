@@ -10,7 +10,7 @@ def test_get_course(client, course_factory, student_factory):
 
     students = student_factory(_quantity=5)
     courses = course_factory(_quantity=2, students=students)
-    url = BASE_URL + str(courses[0].id + '/')
+    url = BASE_URL + str(courses[0].id) + '/'
     response = client.get(url)
     data = response.json()
 
@@ -33,7 +33,7 @@ def test_get_course(client, course_factory):
 @pytest.mark.django.db
 def test_get_course_factory_id(client, course_factory):
     courses = course_factory(_quantity=2)
-    url = BASE_URL + 'id' + str(courses[0].id)
+    url = BASE_URL + '?id=' + str(courses[0].id)
     response = client.get(url)
     data = response.json()
 
@@ -44,7 +44,7 @@ def test_get_course_factory_id(client, course_factory):
 @pytest.mark.django.db
 def test_get_course_filter_name(client, course_factory):
     courses = course_factory(_quantity=10)
-    url = BASE_URL + 'name' + courses[0].name
+    url = BASE_URL + '?name=' + courses[0].name
     response = client.get(url)
     data = response.json()
 
